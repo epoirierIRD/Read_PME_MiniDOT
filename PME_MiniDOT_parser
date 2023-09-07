@@ -4,6 +4,7 @@
 Created on Thu Jul 13 10:02:22 2023
 
 @author: epoirier1
+French National Research Institute for Sustainable Development (IRD)
 """
 
 import pandas as pd
@@ -11,10 +12,13 @@ from matplotlib import pyplot
 from datetime import date, time, datetime
 
 # ************************************************************************************
-# This code is to read a raw Cat.txt downloaded from a PME MiniDOT logger
+# This code is to read a raw data file recorded by a PME MiniDOT logger
+# It is not made to read a concatenated file 
+# download the file raw_minidot_data.txt from this repo and save it on your machine
+# then put the right path to it in the line path =
 
-# path to the concatenated file Cat.txt on your machine
-path = '/home/path.to/my/Cat.txt'
+# path to the raw data file on your machine
+path = '/home/path.to/my/raw_minidot_data.txt'
 
 # df is a dataframe created with all the file columns
 # careful for value header=row. The file row counts starts at row 0
@@ -24,6 +28,9 @@ df = pd.read_csv(path, header=2, delimiter=',', index_col=0)
 df.index = pd.to_datetime(df.index, unit='s')
 
 # plot the column number you want to see (number of first column is 0)
+# [0] column 0 is the battery voltage in Volts
+# [1] column 1 is the dissolved oxygen in mg/l
+# [2] column 2 is the temperature in °C
 df.plot(y=df.columns[1], style='.-', markevery=5)
 
 # show the first lines of the df dataframe
@@ -35,14 +42,15 @@ print(df.describe())
 
 # ****************************************************************************
 
-# This code is to select a dfs of data of interest
+# This code is to select some data of interest between tow times
 
 # ****************************************************************************
-# Specify your the start and end time of that data you are interested in
+# Specify your the start and end time of the data you are interested in
 start = datetime(2023,5,23,7,50,00)
 end = datetime(2023,5,23,8,40,00)
 
 # this shorten the df dataframe into a smaller one called dfs
 # containig the data of interest
 dfs = df[start_palier1 : end_palier1]
+# plot your data of interest
 dfs.plot(y=dfs.columns[2], style='.-', markevery=5)
