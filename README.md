@@ -5,4 +5,4 @@ It puts the data in a panda dataframe and makes a simple plot of either the temp
 The MiniDOT probe measures temperature and dissolved oxygen.
 https://www.pme.com/new-products/minidot-usb-oxygen-logger
 
-The data file raw_minidot_data.txt is to be red with this code. 
+The data file raw_minidot_data.txt of the repository is to use with this code. 
