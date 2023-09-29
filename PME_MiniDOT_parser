@@ -20,14 +20,14 @@ from datetime import date, time, datetime
 # path to the raw data file on your machine
 path = '/home/path.to/my/raw_minidot_data.txt'
 
-# df is a dataframe created with all the file columns
-# careful for value header=row. The file row counts starts at row 0
+# df is a dataframe created with all the columns from raw_minidot_data.txt
+# careful for row value in header=row. The row counts starts at row 0
 df = pd.read_csv(path, header=2, delimiter=',', index_col=0)
 
-# convert the index times from unix seconds to date time AAAA-MM-DD HH:MM:SS
+# convert the index times from unix seconds to date time objects with the format AAAA-MM-DD HH:MM:SS
 df.index = pd.to_datetime(df.index, unit='s')
 
-# plot the column number you want to see (number of first column is 0)
+# plot the column number you want to see (watch out, number of first column is 0)
 # [0] column 0 is the battery voltage in Volts
 # [1] column 1 is the dissolved oxygen in mg/l
 # [2] column 2 is the temperature in °C
@@ -42,15 +42,16 @@ print(df.describe())
 
 # ****************************************************************************
 
-# This code is to select some data of interest between tow times
+# This code is to select a period of the data between tow chosen times
+# It is helpful if you want to "zoom in" on some data of interest
 
 # ****************************************************************************
-# Specify your the start and end time of the data you are interested in
-start = datetime(2023,5,23,9,30,00)
-end = datetime(2023,5,23,11,25,00)
+# Specify your the start1 and end1 time of the data your want to focus on
+start1 = datetime(2023,5,23,9,30,00)
+end1 = datetime(2023,5,23,11,25,00)
 
 # this shorten the df dataframe into a smaller one called dfs
 # containig the data of interest
-dfs = df[start : end]
+dfs = df[start1 : end1]
 # plot your data of interest
 dfs.plot(y=dfs.columns[2], style='.-', markevery=5)
